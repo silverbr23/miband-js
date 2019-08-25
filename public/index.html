@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <link rel='manifest' href='/manifest.json'>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Welcome to Firebase Hosting</title>
@@ -32,10 +33,10 @@
   </head>
   <body>
     <div id="message">
-      <h2>Welcome</h2>
-      <button id="scanBtn" class="btn-scan">Scan</button>
+      <h2>Encontre seu MiBand</h2>
+      <button id="scanBtn" class="btn-scan">escanear</button>
     </div>
-    <p id="load">Firebase SDK Loading&hellip;</p>
+   
     <main style="display: none;">
       <pre id="output"></pre>
     </main>
@@ -44,6 +45,28 @@
     
     <script src="moment.js"></script>
     <script>
+      // This is the service worker with the Cache-first network
+
+      // Add this below content to your HTML page, or add the js file to your page at the very top to register service worker
+
+      // Check compatibility for the browser we're running this in
+      if ("serviceWorker" in navigator) {
+        if (navigator.serviceWorker.controller) {
+          console.log("[PWA Builder] active service worker found, no need to register");
+        } else {
+          // Register the service worker
+          navigator.serviceWorker
+            .register("pwabuilder-sw.js", {
+              scope: "./"
+            })
+            .then(function (reg) {
+              console.log("[PWA Builder] Service worker has been registered for scope: " + reg.scope);
+            });
+        }
+      }
+
+
+
       document.addEventListener('DOMContentLoaded', function() {
         // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
         // // The Firebase SDK is initialized and available here!
@@ -58,10 +81,10 @@
         try {
           let app = firebase.app();
           let features = ['auth', 'database', 'messaging', 'storage'].filter(feature => typeof app[feature] === 'function');
-          document.getElementById('load').innerHTML = `Firebase SDK loaded with ${features.join(', ')}`;
+
         } catch (e) {
           console.error(e);
-          document.getElementById('load').innerHTML = 'Error loading the Firebase SDK, check the console.';
+      
         }
       });
     </script>
