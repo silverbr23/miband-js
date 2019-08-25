@@ -18,6 +18,7 @@
   },
   "dependencies": {
     "browserify-aes": "^1.2.0",
+    "firebase": "^6.4.2",
     "webbluetooth": "^1.0.6"
   },
   "devDependencies": {

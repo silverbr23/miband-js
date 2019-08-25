@@ -1,8 +1,20 @@
 'use strict';
 
+// const firebase = require("firebase");
+// // Required for side-effects
+// require("firebase/firestore");
+
 function delay(ms) {
   return new Promise(resolve => setTimeout(resolve, ms))
 }
+
+// firebase.initializeApp({
+//   apiKey: 'AIzaSyCQYXnNaFVzuCkmDG5uTvRj68jF5WWutRU',
+//   authDomain: 'heartmonitor-a0e4e.firebaseapp.com',
+//   projectId: 'heartmonitor-a0e4e'
+// });
+
+// const db = firebase.firestore();
 
 async function test_all(miband, log) {
 
@@ -42,7 +54,23 @@ async function test_all(miband, log) {
 
   log('Heart Rate Monitor (continuous for 30 sec)...')
   miband.on('heart_rate', (rate) => {
+
+
+    // db.collection("Heart").add({
+    //   User: "Ada",
+    //   HeartRate: rate,
+    //   Date: Date.now
+    // })
+    //   .then(function(docRef) {
+    //     console.log("Document written with ID: ", docRef.id);
+    //   })
+    //   .catch(function(error) {
+    //     console.error("Error adding document: ", error);
+    //   });
+
     log('Heart Rate:', rate)
+
+
   })
   await miband.hrmStart();
   await delay(30000);
