@@ -1,5 +1,7 @@
 (function () {
             'use strict';
+            if(screen)
+            screen.orientation.lock('landscape');
 
             function __$styleInject(css) {
                 if (!css) return;
@@ -7461,7 +7463,7 @@
                 await this.char.hrm_ctrl.writeValue(AB([0x15, 0x02, 0x00]));
                 await this.char.hrm_ctrl.writeValue(AB([0x15, 0x01, 0x00]));
                 await this.char.hrm_ctrl.writeValue(AB([0x15, 0x01, 0x01]));
-
+ 
                 // Start pinging HRM
                 this.hrmTimer = this.hrmTimer || setInterval(() => {
                   debug$1('Pinging HRM');
@@ -7647,49 +7649,17 @@
             });
 
             const db = firebase.firestore();
-
+            let luid = JSON.parse(localStorage.getItem('id'));
+            luid = luid.user.uid;
+            const teet = document.querySelector('#teste');
             async function test_all(miband, log) {
-
-              // let info = {
-              //   time:     await miband.getTime(),
-              //   battery:  await miband.getBatteryInfo(),
-              //   hw_ver:   await miband.getHwRevision(),
-              //   sw_ver:   await miband.getSwRevision(),
-              //   serial:   await miband.getSerial(),
-              // };
-
-              // log(`HW ver: ${info.hw_ver}  SW ver: ${info.sw_ver}`);
-              // info.serial && log(`Serial: ${info.serial}`);
-              // log(`Battery: ${info.battery.level}%`);
-              // log(`Time: ${info.time.toLocaleString()}`);
-
-              // let ped = await miband.getPedometerStats();
-              // log('Pedometer:', JSON.stringify(ped));
-
-              // log('Notifications demo...');
-              // await miband.showNotification('message');
-              // await delay(3000);
-              // await miband.showNotification('phone');
-              // await delay(5000);
-              // await miband.showNotification('off');
-
-              // log('Tap MiBand button, quick!');
-              // miband.on('button', () => log('Tap detected'));
-              // try {
-              //   await miband.waitButton(10000);
-              // } catch (e) {
-              //   log('OK, nevermind ;)');
-              // }
-
-              // log('Heart Rate Monitor (single-shot)');
-              // log('Result:', await miband.hrmRead());
-
-              log('Heart Rate Monitor (continuous for 30 sec)...');
+              console.log('y')
               miband.on('heart_rate', (rate) => {
 
-
+                teet.innerHTML = rate;
+                console.log('z')
                 db.collection("Heart").add({
-                  User: "Ada",
+                  uid: luid,
                   HeartRate: rate,
                   Date: moment().toDate()
                 })
@@ -7704,30 +7674,29 @@
 
 
               });
-              await miband.hrmStart();
-
+ 
+    
               //log('RAW data (no decoding)...')
               //miband.rawStart();
               //await delay(30000);
               //miband.rawStop();
-
-              log('Finished.');
             }
 
-            var test = test_all;
+       
 
-            __$styleInject("html {\n  background: #eee;\n}\nbody {\n  max-width: 960px;\n  width: 80%;\n  box-sizing: border-box;\n  margin: 50px auto;\n  min-height: calc(100vh - 100px);\n  background: #000;\n  box-shadow: 0 0 96px black;\n  border-radius: 16px;\n  border-bottom-left-radius: 0;\n  border-bottom-right-radius: 0;\n  font-family: monospace;\n}\nheader {\n  padding: 4px 16px 0px;\n  background: #333;\n  border-radius: 16px;\n  border-bottom-left-radius: 0;\n  border-bottom-right-radius: 0;\n  display: flex;\n  justify-content: space-between;\n  font-family: \"Arial\";\n}\nmain {\n  background: black;\n  color: white;\n  padding: 4px 16px;\n  overflow-y: auto;\n  max-height: calc(100vh - 164px);\n}\n#output {\n  margin: 0;\n}\nh1 {\n  text-shadow: 1px 1px 0 black;\n  font-size: 28px;\n  margin: 10px 0;\n  cursor: pointer;\n  color: transparent;\n}\nh1:hover .h1-left,\nh1:hover .h1-right {\n  color: #fff;\n}\nh1 .h1-left {\n  color: #A9D96C;\n  transition: 0.25s ease-in-out color;\n}\nh1 .h1-right {\n  margin-left: -6px;\n  color: #41c5f4;\n  transition: 0.25s ease-in-out color;\n}\nh1 a {\n  color: transparent;\n  text-decoration: none;\n}\n.btn-scan {\n  margin: 12px 0;\n  padding: 0 24px;\n  cursor: pointer;\n  background: #A9D96C;\n  border: none;\n  color: white;\n  font-weight: bold;\n  border-radius: 4px;\n  outline: none;\n  transition: 0.25s ease-in-out color;\n}\n.btn-scan:hover {\n  color: black;\n}\n.fork-me {\n  position: fixed;\n  top: 0;\n  right: 0;\n  border: 0;\n  z-index: -1;\n  transform: rotate(90deg);\n}\n");
+            // __$styleInject("html {\n  background: #eee;\n}\nbody {\n  max-width: 960px;\n  width: 80%;\n  box-sizing: border-box;\n  margin: 50px auto;\n  min-height: calc(100vh - 100px);\n  background: #000;\n  box-shadow: 0 0 96px black;\n  border-radius: 16px;\n  border-bottom-left-radius: 0;\n  border-bottom-right-radius: 0;\n  font-family: monospace;\n}\nheader {\n  padding: 4px 16px 0px;\n  background: #333;\n  border-radius: 16px;\n  border-bottom-left-radius: 0;\n  border-bottom-right-radius: 0;\n  display: flex;\n  justify-content: space-between;\n  font-family: \"Arial\";\n}\nmain {\n  background: black;\n  color: white;\n  padding: 4px 16px;\n  overflow-y: auto;\n  max-height: calc(100vh - 164px);\n}\n#output {\n  margin: 0;\n}\nh1 {\n  text-shadow: 1px 1px 0 black;\n  font-size: 28px;\n  margin: 10px 0;\n  cursor: pointer;\n  color: transparent;\n}\nh1:hover .h1-left,\nh1:hover .h1-right {\n  color: #fff;\n}\nh1 .h1-left {\n  color: #A9D96C;\n  transition: 0.25s ease-in-out color;\n}\nh1 .h1-right {\n  margin-left: -6px;\n  color: #41c5f4;\n  transition: 0.25s ease-in-out color;\n}\nh1 a {\n  color: transparent;\n  text-decoration: none;\n}\n.btn-scan {\n  margin: 12px 0;\n  padding: 0 24px;\n  cursor: pointer;\n  background: #A9D96C;\n  border: none;\n  color: white;\n  font-weight: bold;\n  border-radius: 4px;\n  outline: none;\n  transition: 0.25s ease-in-out color;\n}\n.btn-scan:hover {\n  color: black;\n}\n.fork-me {\n  position: fixed;\n  top: 0;\n  right: 0;\n  border: 0;\n  z-index: -1;\n  transform: rotate(90deg);\n}\n");
 
             const bluetooth = navigator.bluetooth;
 
             const output = document.querySelector('#output');
-
+            const locali = document.querySelector('#Localiza');
             function log$1() {
-              document.querySelector('main').style.display = 'block';
+              // document.querySelector('main').style.display = 'block';
 
               output.innerHTML += [...arguments].join(' ') + '\n';
             }
-
+           var server;
+            var miband$$1;
             async function scan() {
               if (!bluetooth) {
                 log$1('WebBluetooth is not supported by your browser!');
@@ -7735,7 +7704,7 @@
               }
 
               try {
-                log$1('Requesting Bluetooth Device...');
+           
                 const device = await bluetooth.requestDevice({
                   filters: [
                     { services: [ miband.advertisementService ] }
@@ -7748,23 +7717,46 @@
                 });
 
                 await device.gatt.disconnect();
-
+                locali.style.color = '#000099';
+                locali.innerHTML = 'Escolha seu Dispositivo';
                 log$1('Connecting to the device...');
-                const server = await device.gatt.connect();
+                server = await device.gatt.connect();
                 log$1('Connected');
-
-                let miband$$1 = new miband(server);
+                locali.style.color = '#000099';
+                locali.innerHTML = 'Conectando a Pulseira.';
+                miband$$1 = new miband(server);
 
                 await miband$$1.init();
-
-                await test(miband$$1, log$1);
+                locali.style.color = '#00AA00';
+                locali.innerHTML = 'Ativo!';
+                log$1('Ativo');
 
               } catch(error) {
                 log$1('Argh!', error);
               }
             }
+            async function HB(){
+              if(!miband$$1){
+                log$1('Não há ngm conectado');
+                return;
+              }
+              await miband$$1.rawStart();
+              await test_all(miband$$1, log$1);
+            }
+
+            async function stop(){
+              if(!miband$$1){
+                log$1('Não há ngm conectado');
+                return;
+              }
+              
+              miband$$1.rawStop();
+            
+              log$1('Funciona');
+            }
 
             document.querySelector('#scanBtn').addEventListener('click', scan);
-
+            document.querySelector('#HB').addEventListener('click', HB);
+            document.querySelector('#stopRunning').addEventListener('click', stop);
 }());
 //# sourceMappingURL=webapp.bundle.js.map
