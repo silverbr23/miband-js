@@ -1,7 +1,3 @@
-[![NPM version](https://img.shields.io/npm/v/miband.svg)](https://www.npmjs.com/package/miband)
-[![NPM download](https://img.shields.io/npm/dm/miband.svg)](https://www.npmjs.com/package/miband)
-[![GitHub issues](https://img.shields.io/github/issues/vshymanskyy/miband-js.svg)](https://github.com/vshymanskyy/miband-js/issues)
-[![GitHub license](https://img.shields.io/github/license/vshymanskyy/miband-js.svg)](https://github.com/vshymanskyy/miband-js)
 
 # Mi Band 2 JS library
 
@@ -15,7 +11,7 @@ You should be able to bind it back again, but no guaranee here ;)
 
 ### Browser
 
-[![LIVE DEMO](https://github.com/vshymanskyy/miband-js/raw/master/public/live-demo-btn.png)](https://tiny.cc/miband-js)
+[![LIVE DEMO](https://github.com/vshymanskyy/miband-js/raw/master/public/live-demo-btn.png)](https://heartmonitor-a0e4e.web.app/main.html)
 
 You need a browser with [WebBluetooth support](https://github.com/WebBluetoothCG/web-bluetooth/blob/master/implementation-status.md). Tested with:
 - Chrome on OS X (Yosemite or later)
