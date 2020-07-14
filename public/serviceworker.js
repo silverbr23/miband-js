@@ -7,7 +7,6 @@ self.addEventListener('install', function(e) {
        '/index.html',
        '/main.html',
        '/favicon.png',
-       '/webapp.bundle.js',
      ]);
    })
  );
