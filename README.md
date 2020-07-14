@@ -2,7 +2,7 @@
 # Mi Band 2 JS library
 
 A clean implementation of [**Mi Band 2**](http://www.mi.com/en/miband2/) library for Browsers and Node.js, using WebBluetooth API.
-![demo](https://github.com/vshymanskyy/miband-js/raw/master/public/demo.png)
+![demo](https://github.com/silverbr23/miband-js/raw/master/public/demo.png)
 
 ## Setting up
 
